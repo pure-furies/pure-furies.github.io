@@ -36,7 +36,7 @@
 						</nav>
 					</header>
 
-				<!-- Main -->
+<!-- Main -->
 <div id="main">
     <!-- english -->
     <article id="licheng">
@@ -46,15 +46,23 @@
                 <h3>
                     自助服务链接(复制链接到浏览器)
                 </h3>
-                <!-- 新增：包裹链接和复制按钮 -->
-                <div style="display: flex; align-items: center; gap: 8px; margin-top: 8px;">
-                    <p style="margin: 0; flex: 1;" id="service-link">
-                        https://nmuhelper.frii.site/
-                    </p>
-                    <button onclick="copyServiceLink()" style="padding: 4px 10px; border: 1px solid #ccc; background: #FFB7C5; border-radius: 4px; cursor: pointer; font-size: 14px;">
-                        点击复制
-                    </button>
-                </div>
+                <!-- 链接区域 -->
+                <p style="margin: 0; padding: 4px 0;" id="service-link">
+                    https://nmuhelper.frii.site/
+                </p>
+                <!-- 复制按钮：移到链接下方 + 背景色FF66B2 -->
+                <button onclick="copyServiceLink()" style="
+                    margin-top: 8px; /* 与链接拉开间距 */
+                    padding: 6px 12px;
+                    border: none; /* 去掉默认边框 */
+                    background-color: #FF66B2; /* 粉色背景 */
+                    color: #ffffff; /* 白色文字，对比更清晰 */
+                    border-radius: 4px;
+                    cursor: pointer;
+                    font-size: 14px;
+                ">
+                    点击复制
+                </button>
             </li>
         </ul>
     </article>
@@ -70,15 +78,20 @@ function copyServiceLink() {
     
     // 修改按钮文字提示
     copyBtn.innerText = '复制中...';
+    // 禁用按钮避免重复点击
+    copyBtn.disabled = true;
     
     // 现代浏览器 Clipboard API（推荐）
     if (navigator.clipboard) {
         navigator.clipboard.writeText(linkText)
             .then(() => {
                 copyBtn.innerText = '复制成功 ✔';
-                // 2秒后恢复按钮文字
+                copyBtn.style.backgroundColor = '#52C41A'; // 成功时改绿色
+                // 2秒后恢复按钮状态
                 setTimeout(() => {
                     copyBtn.innerText = '点击复制';
+                    copyBtn.style.backgroundColor = '#FF66B2';
+                    copyBtn.disabled = false;
                 }, 2000);
             })
             .catch(err => {
@@ -112,18 +125,20 @@ function fallbackCopy(text, btn) {
     // 提示结果
     if (isSuccess) {
         btn.innerText = '复制成功 ✔';
-        setTimeout(() => {
-            btn.innerText = '点击复制';
-        }, 2000);
+        btn.style.backgroundColor = '#52C41A';
     } else {
         btn.innerText = '复制失败';
+        btn.style.backgroundColor = '#FF4D4F';
         alert('复制失败，请手动复制链接：' + text);
-        setTimeout(() => {
-            btn.innerText = '点击复制';
-        }, 2000);
     }
+    
+    // 恢复按钮状态
+    setTimeout(() => {
+        btn.innerText = '点击复制';
+        btn.style.backgroundColor = '#FF66B2';
+        btn.disabled = false;
+    }, 2000);
 }
-</script>
  
 
 			</div>
