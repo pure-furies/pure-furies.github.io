@@ -37,30 +37,93 @@
 					</header>
 
 				<!-- Main -->
-					<div id="main">
-						<!-- english -->
-							<article id="licheng">
-								<ul>
-									<li><h2>以下是我建立的服务网站</h2></li>							
-									<li>
-										<h3>
-											自助服务链接(复制链接到浏览器)
-										</h3>
-										<p>
-											https://nmuhelper.frii.site/
-										</p>
-									</li>
-									<input type="text" id="input-text" value="自定义复制内容">
-<button onclick="copyInput()">复制输入框内容</button>
+<div id="main">
+    <!-- english -->
+    <article id="licheng">
+        <ul>
+            <li><h2>以下是我建立的服务网站</h2></li>							
+            <li>
+                <h3>
+                    自助服务链接(复制链接到浏览器)
+                </h3>
+                <!-- 新增：包裹链接和复制按钮 -->
+                <div style="display: flex; align-items: center; gap: 8px; margin-top: 8px;">
+                    <p style="margin: 0; flex: 1;" id="service-link">
+                        https://nmuhelper.frii.site/
+                    </p>
+                    <button onclick="copyServiceLink()" style="padding: 4px 10px; border: 1px solid #ccc; background: #f5f5f5; border-radius: 4px; cursor: pointer; font-size: 14px;">
+                        点击复制
+                    </button>
+                </div>
+            </li>
+        </ul>
+    </article>
+</div>
+
+<!-- 复制功能脚本 -->
 <script>
-  function copyInput() {
-    const text = document.getElementById('input-text').value;
-    navigator.clipboard.writeText(text).then(() => alert('复制成功'));
-  }
+// 复制服务链接函数
+function copyServiceLink() {
+    // 获取要复制的链接文本
+    const linkText = document.getElementById('service-link').innerText.trim();
+    const copyBtn = event.target; // 获取点击的按钮
+    
+    // 修改按钮文字提示
+    copyBtn.innerText = '复制中...';
+    
+    // 现代浏览器 Clipboard API（推荐）
+    if (navigator.clipboard) {
+        navigator.clipboard.writeText(linkText)
+            .then(() => {
+                copyBtn.innerText = '复制成功 ✔';
+                // 2秒后恢复按钮文字
+                setTimeout(() => {
+                    copyBtn.innerText = '点击复制';
+                }, 2000);
+            })
+            .catch(err => {
+                // 降级方案：兼容旧浏览器
+                fallbackCopy(linkText, copyBtn);
+            });
+    } else {
+        // 旧浏览器直接使用降级方案
+        fallbackCopy(linkText, copyBtn);
+    }
+}
+
+// 降级复制函数（兼容IE/HTTP页面）
+function fallbackCopy(text, btn) {
+    // 创建临时输入框
+    const tempInput = document.createElement('input');
+    tempInput.value = text;
+    // 隐藏临时输入框（避免页面闪烁）
+    tempInput.style.position = 'fixed';
+    tempInput.style.opacity = 0;
+    tempInput.style.left = '-9999px';
+    document.body.appendChild(tempInput);
+    
+    // 选中并复制
+    tempInput.select();
+    const isSuccess = document.execCommand('copy');
+    
+    // 删除临时输入框
+    document.body.removeChild(tempInput);
+    
+    // 提示结果
+    if (isSuccess) {
+        btn.innerText = '复制成功 ✔';
+        setTimeout(() => {
+            btn.innerText = '点击复制';
+        }, 2000);
+    } else {
+        btn.innerText = '复制失败';
+        alert('复制失败，请手动复制链接：' + text);
+        setTimeout(() => {
+            btn.innerText = '点击复制';
+        }, 2000);
+    }
+}
 </script>
-								</ul>
-							</article>
-					</div>
  
 
 			</div>
