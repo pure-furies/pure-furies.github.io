@@ -50,7 +50,14 @@
 											https://nmuhelper.frii.site/
 										</p>
 									</li>
-									
+									<input type="text" id="input-text" value="自定义复制内容">
+<button onclick="copyInput()">复制输入框内容</button>
+<script>
+  function copyInput() {
+    const text = document.getElementById('input-text').value;
+    navigator.clipboard.writeText(text).then(() => alert('复制成功'));
+  }
+</script>
 								</ul>
 							</article>
 					</div>
