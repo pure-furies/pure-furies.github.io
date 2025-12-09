@@ -1,6 +1,4 @@
-<!-- 复制功能脚本 -->
-<script>
-// 复制服务链接函数
+
 function copyServiceLink() {
     // 获取要复制的链接文本
     const linkText = document.getElementById('service-link').innerText.trim();
@@ -61,4 +59,4 @@ function fallbackCopy(text, btn) {
         }, 2000);
     }
 }
-</script>
+
