@@ -1,13 +1,12 @@
 
 function copyServiceLink() {
-    // 获取要复制的链接文本
+ 
     const linkText = document.getElementById('service-link').innerText.trim();
-    const copyBtn = event.target; // 获取点击的按钮
-    
-    // 修改按钮文字提示
+    const copyBtn = event.target; 
+
     copyBtn.innerText = '复制中...';
     
-    // 现代浏览器 Clipboard API（推荐）
+  
     if (navigator.clipboard) {
         navigator.clipboard.writeText(linkText)
             .then(() => {
@@ -18,34 +17,33 @@ function copyServiceLink() {
                 }, 2000);
             })
             .catch(err => {
-                // 降级方案：兼容旧浏览器
+               
                 fallbackCopy(linkText, copyBtn);
             });
     } else {
-        // 旧浏览器直接使用降级方案
+       
         fallbackCopy(linkText, copyBtn);
     }
 }
 
-// 降级复制函数（兼容IE/HTTP页面）
+
 function fallbackCopy(text, btn) {
-    // 创建临时输入框
+ 
     const tempInput = document.createElement('input');
     tempInput.value = text;
-    // 隐藏临时输入框（避免页面闪烁）
+   
     tempInput.style.position = 'fixed';
     tempInput.style.opacity = 0;
     tempInput.style.left = '-9999px';
     document.body.appendChild(tempInput);
     
-    // 选中并复制
+
     tempInput.select();
     const isSuccess = document.execCommand('copy');
     
-    // 删除临时输入框
     document.body.removeChild(tempInput);
     
-    // 提示结果
+
     if (isSuccess) {
         btn.innerText = '复制成功 ✔';
         setTimeout(() => {
@@ -53,7 +51,7 @@ function fallbackCopy(text, btn) {
         }, 2000);
     } else {
         btn.innerText = '复制失败';
-        alert('复制失败，请手动复制链接：' + text);
+        alert('复制失败，请手动输入链接：' + text);
         setTimeout(() => {
             btn.innerText = '点击复制';
         }, 2000);
