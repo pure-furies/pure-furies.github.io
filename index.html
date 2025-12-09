@@ -31,7 +31,7 @@
 								<li><a href="https://nmuhelper.frii.site/" target="_blank">小店直链</a></li>
 								<li><a href="#licheng">服务网站</a></li>
 								<li><a href="https://space.bilibili.com/422664776" target="_blank">我的B站</a></li>
-								<li><a href="https://vdse.bdstatic.com//192d9a98d782d9c74c96f09db9378d93.mp4" target="_blank">别点我</a></li>
+								<li><a href="https://vdse.bdstatic.com//192d9a98d782d9c74c96f09db9378d93.mp4" target="_blank">不要点我</a></li>
 							</ul>
 						</nav>
 					</header>
@@ -69,75 +69,6 @@
     </article>
 </div>
 
-<!-- 复制功能脚本 -->
-<script>
-
-function copyServiceLink() {
-
-    const linkText = document.getElementById('service-link').innerText.trim();
-    const copyBtn = event.target; 
-    
-    copyBtn.innerText = '复制中...';
-    
-    copyBtn.disabled = true;
-    
-    if (navigator.clipboard) {
-        navigator.clipboard.writeText(linkText)
-            .then(() => {
-                copyBtn.innerText = '复制成功 ✔';
-                copyBtn.style.backgroundColor = '#52C41A'; 
-                setTimeout(() => {
-                    copyBtn.innerText = '点击复制';
-                    copyBtn.style.backgroundColor = '#FF66B2';
-                    copyBtn.disabled = false;
-                }, 2000);
-            })
-            .catch(err => {
-                
-                fallbackCopy(linkText, copyBtn);
-            });
-    } else {
-      
-        fallbackCopy(linkText, copyBtn);
-    }
-}
-
-
-function fallbackCopy(text, btn) {
-    
-    const tempInput = document.createElement('input');
-    tempInput.value = text;
-   
-    tempInput.style.position = 'fixed';
-    tempInput.style.opacity = 0;
-    tempInput.style.left = '-9999px';
-    document.body.appendChild(tempInput);
-    
-    
-    tempInput.select();
-    const isSuccess = document.execCommand('copy');
-    
-    
-    document.body.removeChild(tempInput);
-    
-   
-    if (isSuccess) {
-        btn.innerText = '复制成功 ✔';
-        btn.style.backgroundColor = '#52C41A';
-    } else {
-        btn.innerText = '复制失败';
-        btn.style.backgroundColor = '#FF4D4F';
-        alert('复制失败，请手动输入链接：' + text);
-    }
-    
-    setTimeout(() => {
-        btn.innerText = '点击复制';
-        btn.style.backgroundColor = '#FF66B2';
-        btn.disabled = false;
-    }, 2000);
-}
- 
-
 			</div>
 
 		<!-- BJ -->
@@ -150,6 +81,7 @@ function fallbackCopy(text, btn) {
 			<script src="js/breakpoints.min.js"></script>
 			<script src="js/util.js"></script>
 			<script src="js/main.js"></script>
+		    <script src="js/copy.js"></script>
 			<script type="text/javascript">document.oncontextmenu=function(t){window.event&&(t=window.event);try{var e=t.srcElement;return"INPUT"==e.tagName&&"text"==e.type.toLowerCase()||"TEXTAREA"==e.tagName?!0:!1}catch(n){return!1}},document.onpaste=function(t){window.event&&(t=window.event);try{var e=t.srcElement;return"INPUT"==e.tagName&&"text"==e.type.toLowerCase()||"TEXTAREA"==e.tagName?!0:!1}catch(n){return!1}},document.oncopy=function(t){window.event&&(t=window.event);try{var e=t.srcElement;return"INPUT"==e.tagName&&"text"==e.type.toLowerCase()||"TEXTAREA"==e.tagName?!0:!1}catch(n){return!1}},document.oncut=function(t){window.event&&(t=window.event);try{var e=t.srcElement;return"INPUT"==e.tagName&&"text"==e.type.toLowerCase()||"TEXTAREA"==e.tagName?!0:!1}catch(n){return!1}},document.onselectstart=function(t){window.event&&(t=window.event);try{var e=t.srcElement;return"INPUT"==e.tagName&&"text"==e.type.toLowerCase()||"TEXTAREA"==e.tagName?!0:!1}catch(n){return!1}};
 			</script>
 	</body>
