@@ -1,3 +1,4 @@
+<!-- 复制功能脚本 -->
 <script>
 // 复制服务链接函数
 function copyServiceLink() {
@@ -7,20 +8,15 @@ function copyServiceLink() {
     
     // 修改按钮文字提示
     copyBtn.innerText = '复制中...';
-    // 禁用按钮避免重复点击
-    copyBtn.disabled = true;
     
     // 现代浏览器 Clipboard API（推荐）
     if (navigator.clipboard) {
         navigator.clipboard.writeText(linkText)
             .then(() => {
                 copyBtn.innerText = '复制成功 ✔';
-                copyBtn.style.backgroundColor = '#52C41A'; // 成功时改绿色
-                // 2秒后恢复按钮状态
+                // 2秒后恢复按钮文字
                 setTimeout(() => {
                     copyBtn.innerText = '点击复制';
-                    copyBtn.style.backgroundColor = '#FF66B2';
-                    copyBtn.disabled = false;
                 }, 2000);
             })
             .catch(err => {
@@ -54,17 +50,15 @@ function fallbackCopy(text, btn) {
     // 提示结果
     if (isSuccess) {
         btn.innerText = '复制成功 ✔';
-        btn.style.backgroundColor = '#52C41A';
+        setTimeout(() => {
+            btn.innerText = '点击复制';
+        }, 2000);
     } else {
         btn.innerText = '复制失败';
-        btn.style.backgroundColor = '#FF4D4F';
         alert('复制失败，请手动复制链接：' + text);
+        setTimeout(() => {
+            btn.innerText = '点击复制';
+        }, 2000);
     }
-    
-    // 恢复按钮状态
-    setTimeout(() => {
-        btn.innerText = '点击复制';
-        btn.style.backgroundColor = '#FF66B2';
-        btn.disabled = false;
-    }, 2000);
 }
+</script>
